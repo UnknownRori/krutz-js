@@ -3,7 +3,7 @@ version: '3.8'
 services:
     api:
         image: node:16
-        command: sh -c "npm install && npm run build && cp .env.example .env && npx prisma migrate dev && npm run dev"
+        command: sh -c "npx prisma migrate dev && npm run dev"
         ports:
             - 3000:3000
         working_dir: /app
