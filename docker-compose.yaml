@@ -7,21 +7,48 @@ services:
         ports:
             - 3000:3000
         working_dir: /app
+        stdin_open: true
+        tty: true
+        networks:
+            - db-connection
         volumes:
             - ./:/app
         environment:
-            MYSQL_HOST: mysql
-            MYSQL_USER: root
-            MYSQL_PASSWORD: password
-            MYSQL_DB: krutz
+            DATABASE_URL: 'mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}'
+        links:
+            - db
+        depends_on:
+            - db
 
-    mysql:
-        image: mysql:latest
+    db:
+        image: mysql/mysql-server:8.0
         volumes:
             - krutz-data:/var/lib/mysql
+        ports:
+            - 3306:3306
+        restart: unless-stopped
+        stdin_open: true
+        tty: true
         environment:
+            MYSQL_DATABASE: $MYSQL_DATABASE
+            MYSQL_ROOT_HOST: "%"
             MYSQL_ROOT_PASSWORD: password
-            MYSQL_DATABASE: krutz
+            MYSQL_USER_HOST: "%"
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        networks:
+            - db-connection
+        volumes:
+            - krutz-db:/var/lib/mysql
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
+            retries: 3
+            timeout: 5s
 
 volumes:
-    krutz-data:
+    krutz-db:
+
+networks:
+    db-connection:
+        driver: bridge
