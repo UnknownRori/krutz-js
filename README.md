@@ -30,6 +30,9 @@ For those who doesn't have Docker installed, make sure you have mysql installed.
 > cp .env.example .env
 > vim .env
 
+# Run Migration
+> npx prisma migrate dev
+
 # Run the development server
 > pnpm run dev
 ```
