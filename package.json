@@ -6,6 +6,7 @@
         "lint": "eslint . --ext .ts,.tsx"
     },
     "dependencies": {
+        "dotenv": "^16.0.2",
         "fastify": "^4.5.3"
     },
     "devDependencies": {
