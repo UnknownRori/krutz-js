@@ -8,7 +8,7 @@ export default class App {
     protected port: number;
     protected host: string;
 
-    constructor(opts: FastifyServerOptions) {
+    constructor(opts: FastifyServerOptions = {}) {
         dotenv.config();
 
         const builder = new FastifyBuilder(opts, router);
