@@ -6,8 +6,11 @@
         "lint": "eslint . --ext .ts,.tsx"
     },
     "dependencies": {
+        "@fastify/rate-limit": "^7.4.0",
+        "@fastify/schedule": "^3.0.0",
         "dotenv": "^16.0.2",
-        "fastify": "^4.5.3"
+        "fastify": "^4.5.3",
+        "toad-scheduler": "^1.6.1"
     },
     "devDependencies": {
         "@prisma/client": "^4.3.1",
