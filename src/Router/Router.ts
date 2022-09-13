@@ -1,10 +1,8 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import Ping from "../Controller/PingController";
 import Route from "../Http/Route";
 
 const router = new Route('/api');
 
-router.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
-    reply.send({ "message": "Pong!" });
-}).name('ping');
+router.get('/ping', Ping).name('ping');
 
 export default router;
