@@ -1,10 +1,13 @@
+import { FastifySchema } from "fastify";
+import Http from "../Enum/Http";
 import RouteClosure from "../Types/RouteClosure";
 import RouteCollection from "../Types/RouteCollection";
 import RouteNameCollection from "../Types/RouteNameCollection";
+import { RouteSelection } from "../Types/RouteSelection";
 
 export default class Route {
     protected prefix: string;
-    protected current: string;
+    protected current: RouteSelection;
 
     public HEAD: RouteCollection = new Map();
     public GET: RouteCollection = new Map();
@@ -16,7 +19,11 @@ export default class Route {
 
     constructor(prefix = '') {
         this.prefix = prefix;
-        this.current = '';
+        this.current = {
+            action: function (r, q) { q.status(404); },
+            uri: '',
+            method: Http.HEAD
+        };
     }
 
     /**
@@ -26,8 +33,8 @@ export default class Route {
      * @returns this
      */
     public head(url: string, closure: RouteClosure): this {
-        this.current = url;
-        this.HEAD.set(this.combinePrefixAndURL(url), closure);
+        this.setCurrent(url, Http.HEAD, closure);
+        this.HEAD.set(this.combinePrefixAndURL(url), { action: closure });
         return this;
     }
     /**
@@ -37,8 +44,8 @@ export default class Route {
      * @returns this
      */
     public get(url: string, closure: RouteClosure): this {
-        this.current = url;
-        this.GET.set(this.combinePrefixAndURL(url), closure);
+        this.setCurrent(url, Http.GET, closure);
+        this.GET.set(this.combinePrefixAndURL(url), { action: closure });
         return this;
     }
 
@@ -49,8 +56,8 @@ export default class Route {
      * @returns this
      */
     public post(url: string, closure: RouteClosure): this {
-        this.current = url;
-        this.POST.set(this.combinePrefixAndURL(url), closure);
+        this.setCurrent(url, Http.POST, closure);
+        this.POST.set(this.combinePrefixAndURL(url), { action: closure });
         return this;
     }
 
@@ -58,8 +65,8 @@ export default class Route {
      * Add PUT HTTP Endpoint
      */
     public put(url: string, closure: RouteClosure): this {
-        this.current = url;
-        this.PUT.set(this.combinePrefixAndURL(url), closure);
+        this.setCurrent(url, Http.PUT, closure);
+        this.PUT.set(this.combinePrefixAndURL(url), { action: closure });
         return this;
     }
 
@@ -70,8 +77,8 @@ export default class Route {
      * @returns this
      */
     public patch(url: string, closure: RouteClosure): this {
-        this.current = url;
-        this.PATCH.set(this.combinePrefixAndURL(url), closure);
+        this.setCurrent(url, Http.PATCH, closure);
+        this.PATCH.set(this.combinePrefixAndURL(url), { action: closure });
         return this;
     }
 
@@ -82,8 +89,8 @@ export default class Route {
      * @returns this
      */
     public delete(url: string, closure: RouteClosure): this {
-        this.current = url;
-        this.DELETE.set(this.combinePrefixAndURL(url), closure);
+        this.setCurrent(url, Http.DELETE, closure);
+        this.DELETE.set(this.combinePrefixAndURL(url), { action: closure });
         return this;
     }
 
@@ -93,8 +100,31 @@ export default class Route {
      * @returns this
      */
     public name(name: string): this {
-        this.NAME.set(name, this.current);
+        this.NAME.set(name, this.current.uri);
         return this;
+    }
+
+    public schema(schema: FastifySchema) {
+        switch (this.current.method) {
+            case Http.HEAD:
+                this.HEAD.set(this.current.uri, { action: this.current.action, schema: schema });
+                break;
+            case Http.GET:
+                this.GET.set(this.current.uri, { action: this.current.action, schema: schema });
+                break;
+            case Http.POST:
+                this.POST.set(this.current.uri, { action: this.current.action, schema: schema });
+                break;
+            case Http.PUT:
+                this.PUT.set(this.current.uri, { action: this.current.action, schema: schema });
+                break;
+            case Http.PATCH:
+                this.PATCH.set(this.current.uri, { action: this.current.action, schema: schema });
+                break;
+            case Http.DELETE:
+                this.DELETE.set(this.current.uri, { action: this.current.action, schema: schema });
+                break;
+        }
     }
 
     /**
@@ -113,5 +143,9 @@ export default class Route {
      */
     protected combinePrefixAndURL(url: string): string {
         return this.prefix + url;
+    }
+
+    protected setCurrent(uri: string, method: Http, action: RouteClosure) {
+        this.current = this.current = { method: method, uri: uri, action: action };
     }
 }

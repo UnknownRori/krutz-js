@@ -1,13 +1,12 @@
 import fastify, { FastifyServerOptions, FastifyInstance } from 'fastify';
 import Builder from '../Contracts/Builder';
 import Route from '../Http/Route';
-import RouteClosure from '../Types/RouteClosure';
 
 export default class FastifyBuilder implements Builder {
     private opts: FastifyServerOptions = {};
     private route: Route;
 
-    constructor(opts: FastifyServerOptions = {}, route: Route = new Route()) {
+    constructor(opts: FastifyServerOptions = {}, route = new Route()) {
         this.opts = opts;
         this.route = route;
     }
@@ -21,28 +20,34 @@ export default class FastifyBuilder implements Builder {
     }
 
     protected registerRoute(app: FastifyInstance) {
-        this.route.HEAD.forEach((value: RouteClosure, key) => {
-            app.head(key, value);
+        this.route.HEAD.forEach((value, key) => {
+            const schema = value.schema;
+            app.head(key, { schema }, value.action);
         });
 
-        this.route.GET.forEach((value: RouteClosure, key) => {
-            app.get(key, value);
+        this.route.GET.forEach((value, key) => {
+            const schema = value.schema;
+            app.get(key, { schema }, value.action);
         });
 
-        this.route.POST.forEach((value: RouteClosure, key: string) => {
-            app.post(key, value);
+        this.route.POST.forEach((value, key) => {
+            const schema = value.schema;
+            app.post(key, { schema }, value.action);
         });
 
-        this.route.PATCH.forEach((value: RouteClosure, key: string) => {
-            app.patch(key, value);
+        this.route.PUT.forEach((value, key) => {
+            const schema = value.schema;
+            app.put(key, { schema }, value.action);
         });
 
-        this.route.PUT.forEach((value: RouteClosure, key: string) => {
-            app.put(key, value);
+        this.route.PATCH.forEach((value, key) => {
+            const schema = value.schema;
+            app.patch(key, { schema }, value.action);
         });
 
-        this.route.DELETE.forEach((value: RouteClosure, key: string) => {
-            app.delete(key, value);
+        this.route.DELETE.forEach((value, key) => {
+            const schema = value.schema;
+            app.delete(key, { schema }, value.action);
         });
     }
 }
