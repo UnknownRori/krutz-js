@@ -62,4 +62,20 @@ describe("Testing the Route class", () => {
         expect(route.getRoute('contacts')).toEqual('/contacts');
         expect(route.getRoute('privacy')).toEqual('/privacy');
     });
+
+    test('It can give Route a schema', () => {
+        const schema = {
+            body: {
+                type: 'object',
+                required: ['key'],
+                properties: {
+                    key: { type: 'string' }
+                }
+            }
+        };
+
+        route.post('/', routeFunc).schema(schema);
+
+        expect(route.POST.get('/')?.schema).toBe(schema);
+    });
 });
