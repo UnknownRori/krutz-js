@@ -1,3 +1,4 @@
+import { UriShortResponse } from "../../src/Types/UriShortResponse";
 import { InjectOptions } from "fastify";
 import App from "../../src/App";
 
