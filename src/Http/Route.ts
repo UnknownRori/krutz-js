@@ -5,6 +5,9 @@ import RouteCollection from "../Types/RouteCollection";
 import RouteNameCollection from "../Types/RouteNameCollection";
 import { RouteSelection } from "../Types/RouteSelection";
 
+/**
+ * Custom implementation of Router class on top of Fastify Route
+ */
 export default class Route {
     protected prefix: string;
     protected current: RouteSelection;
@@ -63,6 +66,9 @@ export default class Route {
 
     /**
      * Add PUT HTTP Endpoint
+     * @param url string
+     * @param closure RouteClosure
+     * @returns this
      */
     public put(url: string, closure: RouteClosure): this {
         this.setCurrent(url, Http.PUT, closure);
@@ -104,6 +110,11 @@ export default class Route {
         return this;
     }
 
+    /**
+     * Add schema to the uri
+     * @param schema FastifySchema
+     * @returns this
+     */
     public schema(schema: FastifySchema) {
         switch (this.current.method) {
             case Http.HEAD:
@@ -125,6 +136,8 @@ export default class Route {
                 this.DELETE.set(this.current.uri, { action: this.current.action, schema: schema });
                 break;
         }
+
+        return this;
     }
 
     /**
@@ -145,6 +158,12 @@ export default class Route {
         return this.prefix + url;
     }
 
+    /**
+     * Set the current URI
+     * @param uri string
+     * @param method Http
+     * @param action RouteClosure
+     */
     protected setCurrent(uri: string, method: Http, action: RouteClosure) {
         this.current = this.current = { method: method, uri: uri, action: action };
     }
