@@ -6,6 +6,6 @@ import UriSchema from "../Schema/UriSchema";
 const router = new Route('/api');
 
 router.get('/ping', Ping).name('ping');
-router.post('/uri/short', UriShortController).schema(UriSchema);
+router.post('/uri/short', UriShortController.store).schema(UriSchema).name('uri.short');
 
 export default router;

@@ -3,7 +3,7 @@ import UriShortRequest from "../Types/UriShortRequest";
 import prisma from "../Services/Prisma";
 import RandomString from "../Services/RandomStringService";
 
-const UriShortController = async (request: FastifyRequest, reply: FastifyReply) => {
+const store = async (request: FastifyRequest, reply: FastifyReply) => {
     const requestBody = request.body as UriShortRequest;
 
     try {
@@ -39,4 +39,4 @@ const UriShortController = async (request: FastifyRequest, reply: FastifyReply) 
     }
 };
 
-export default UriShortController;
+export default { store };
