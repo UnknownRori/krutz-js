@@ -5,3 +5,5 @@ interface UriShortResponse {
     message: string,
     uri: Uri
 }
+
+export default UriShortResponse;
