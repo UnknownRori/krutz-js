@@ -1,6 +1,7 @@
 interface Uri {
     url: string,
-    short: string
+    short: string,
+    createdAt: Date
 }
 
 export default Uri;
