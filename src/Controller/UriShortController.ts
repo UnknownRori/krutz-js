@@ -8,6 +8,13 @@ import Uri from '../Model/Uri';
 const store = async (request: FastifyRequest, reply: FastifyReply) => {
     const requestBody = request.body as UriShortRequest;
 
+    if (requestBody.uri == null)
+        return reply.status(400)
+            .send({
+                code: 400,
+                message: 'No URI Passed!'
+            });
+
     try {
         const RandomStringService = new RandomString();
 

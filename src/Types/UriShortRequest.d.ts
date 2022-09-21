@@ -1,5 +1,5 @@
 interface UriShortRequest {
-    uri: string
+    uri?: string
 }
 
 export default UriShortRequest;
