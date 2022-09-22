@@ -73,4 +73,20 @@ const show = async (request: FastifyRequest, reply: FastifyReply) => {
         });
 };
 
-export default { store, show };
+const redirect = async (request: FastifyRequest, reply: FastifyReply) => {
+    const { short } = request.params as UriShortShowRequest;
+
+    const result = await prisma.url.findFirst({ where: { short: short } });
+
+    if (result == null)
+        reply
+            .status(404)
+            .send({
+                code: 404,
+                message: 'URL not found!'
+            });
+
+    reply.redirect(result?.url as string);
+};
+
+export default { store, show, redirect };
