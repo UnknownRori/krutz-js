@@ -6,21 +6,23 @@ services:
         command: sh -c "npx prisma migrate dev && npm run dev"
         ports:
             - 3000:3000
-        working_dir: /app
+        working_dir: /api
         stdin_open: true
         tty: true
         networks:
             - db-connection
         volumes:
-            - ./:/app
+            - ./api:/api
         environment:
-            APP_HOST: '0.0.0.0'
-            APP_PORT: 3000
+            APP_HOST: $API_HOST
+            APP_PORT: $API_PORT
             DATABASE_URL: 'mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}'
         links:
             - db
         depends_on:
             - db
+        env_file:
+            - ./.env
 
     db:
         image: mysql/mysql-server:8.0
@@ -34,7 +36,7 @@ services:
         environment:
             MYSQL_DATABASE: $MYSQL_DATABASE
             MYSQL_ROOT_HOST: "%"
-            MYSQL_ROOT_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
             MYSQL_USER_HOST: "%"
             MYSQL_USER: $MYSQL_USER
             MYSQL_PASSWORD: $MYSQL_PASSWORD
@@ -47,6 +49,8 @@ services:
             test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
             retries: 3
             timeout: 5s
+        env_file:
+            - ./.env
 
 volumes:
     krutz-db:
