@@ -145,8 +145,14 @@ export default class Route {
      * @param name string
      * @returns string|undefined
      */
-    public getRoute(name: string): string | undefined {
-        return this.NAME.get(name);
+    public getRoute(name: string, param: { [index: string]: string } = {}): string | undefined {
+        let result = this.NAME.get(name);
+
+        for (const k in param) {
+            result = result?.replace(`:${k}`, param[k]);
+        }
+
+        return result;
     }
 
     /**
