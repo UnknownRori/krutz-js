@@ -22,4 +22,5 @@ test('Shorten the URI using following API Endpoint', async () => {
     expect(response).toHaveProperty('uri');
     expect(response.uri).toHaveProperty('uri', uriToShort);
     expect(response.uri).toHaveProperty('short');
+    expect(response.uri).toHaveProperty('redirect');
 });

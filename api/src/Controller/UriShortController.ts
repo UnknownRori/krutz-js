@@ -4,6 +4,7 @@ import prisma from "../Services/Prisma";
 import RandomString from "../Services/RandomStringService";
 import UriShortShowRequest from "../Types/UriShortShowRequest";
 import Uri from '../Model/Uri';
+import router from "../Router/Router";
 
 const store = async (request: FastifyRequest, reply: FastifyReply) => {
     const requestBody = request.body as UriShortRequest;
@@ -33,7 +34,8 @@ const store = async (request: FastifyRequest, reply: FastifyReply) => {
                 uri: {
                     uri: newUrl.url,
                     short: newUrl.short,
-                    createdAt: newUrl.createdAt
+                    createdAt: newUrl.createdAt,
+                    redirect: router.getRoute('uri.redirect', { short: (newUrl as Uri).short })
                 }
             });
     } catch (e) {
@@ -68,7 +70,8 @@ const show = async (request: FastifyRequest, reply: FastifyReply) => {
             uri: {
                 uri: (result as Uri).url,
                 short: (result as Uri).short,
-                createdAt: (result as Uri).createdAt
+                createdAt: (result as Uri).createdAt,
+                redirect: router.getRoute('uri.redirect', { short: (result as Uri).short })
             }
         });
 };
