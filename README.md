@@ -1,6 +1,6 @@
 # KrutzJS
 
-A URL shortener microservice written in Typescript using Fastify Web Framework, little bit different than before, this project is written using principle of microservice architecture so the api and database is seperate docker instance so it can scale very easily.
+A URL shortener microservice written in Typescript using Fastify Web Framework and using Vue as frontend, little bit different than before, this project is written using principle of microservice architecture so the api, web and database is seperate docker instance so it can scale very easily.
 
 ## 🚀 Feature
 

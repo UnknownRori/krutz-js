@@ -23,6 +23,27 @@ services:
             - db
         env_file:
             - ./.env
+    web:
+        image: node:16
+        command: sh -c "npm run dev"
+        ports:
+            - 8000:8000
+        working_dir: /web
+        stdin_open: true
+        tty: true
+        networks:
+            - db-connection
+        volumes:
+            - ./web:/web
+        environment:
+            APP_HOST: $WEB_HOST
+            APP_PORT: $WEB_PORT
+        links:
+            - api
+        depends_on:
+            - api
+        env_file:
+            - ./.env
 
     db:
         image: mysql/mysql-server:8.0
