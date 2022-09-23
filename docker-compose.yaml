@@ -23,6 +23,7 @@ services:
             - db
         env_file:
             - ./.env
+        
     web:
         image: node:16
         command: sh -c "npm run dev"
@@ -38,6 +39,8 @@ services:
         environment:
             APP_HOST: $WEB_HOST
             APP_PORT: $WEB_PORT
+            API_HOST: $API_HOST
+            API_PORT: $API_PORT
         links:
             - api
         depends_on:
