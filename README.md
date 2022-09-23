@@ -23,16 +23,4 @@ A URL shortener microservice written in Typescript using Fastify Web Framework a
 > docker-compose up
 ```
 
-For those who doesn't have Docker installed, make sure you have mysql installed.
-
-```bash
-# Set the enviroment variable and uncomment DATABASE_URL
-> cp .env.example .env
-> vim .env
-
-# Run Migration
-> npx prisma migrate dev
-
-# Run the development server
-> pnpm run dev
-```
+For those who doesn't have Docker installed, you can read individual component's readme for instruction.
