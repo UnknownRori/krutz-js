@@ -78,4 +78,16 @@ describe("Testing the Route class", () => {
 
         expect(route.POST.get('/')?.schema).toBe(schema);
     });
+
+    test('It can generate a route', () => {
+        route.get('/test/:test', routeFunc).name('test');
+
+        expect(route.getRoute('test', { test: 1 })).toBe('/test/1');
+    });
+
+    test('It can generate a route 2', () => {
+        route.get('/test/:test', routeFunc).name('test');
+
+        expect(route.getRoute('test', { test: 'Quack' })).toBe('/test/Quack');
+    });
 });
