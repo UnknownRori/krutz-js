@@ -16,6 +16,7 @@ services:
         environment:
             APP_HOST: $API_HOST
             APP_PORT: $API_PORT
+            WEB_URL: $WEB_URL
             DATABASE_URL: 'mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}'
         links:
             - db
@@ -39,8 +40,7 @@ services:
         environment:
             APP_HOST: $WEB_HOST
             APP_PORT: $WEB_PORT
-            API_HOST: $API_HOST
-            API_PORT: $API_PORT
+            VITE_API_URL: $API_URL
         links:
             - api
         depends_on:

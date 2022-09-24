@@ -6,6 +6,7 @@
         "lint": "eslint . --ext .ts,.tsx"
     },
     "dependencies": {
+        "@fastify/cors": "^8.1.0",
         "@fastify/rate-limit": "^7.4.0",
         "@fastify/schedule": "^3.0.0",
         "dotenv": "^16.0.2",
@@ -14,6 +15,7 @@
     },
     "devDependencies": {
         "@prisma/client": "^4.3.1",
+        "@types/fastify-cors": "^2.1.0",
         "@types/jest": "^29.0.0",
         "@types/node": "^18.7.16",
         "@typescript-eslint/eslint-plugin": "^5.36.2",

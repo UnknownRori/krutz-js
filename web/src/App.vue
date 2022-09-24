@@ -6,6 +6,8 @@
 import { onMounted } from 'vue';
 
 onMounted(() => {
-    console.log(import.meta.env.VITE_API_HOST);
+    fetch(`http://127.0.0.1:3000/api/ping`, {
+    }).then((res) => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+    console.log(import.meta.env.VITE_API_URL);
 });
 </script>
