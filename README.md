@@ -24,3 +24,7 @@ A URL shortener microservice written in Typescript using Fastify Web Framework a
 ```
 
 For those who doesn't have Docker installed, you can read individual component's readme for instruction.
+
+## ⭐ Contribution
+
+Feel free to send a pull request or creating an issue.
