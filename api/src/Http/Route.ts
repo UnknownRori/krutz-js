@@ -20,6 +20,12 @@ export default class Route {
     public DELETE: RouteCollection = new Map();
     public NAME: RouteNameCollection = new Map();
 
+    /**
+     * Initialize Route class
+     * 
+     * @param  prefix string
+     * @return Route
+     */
     constructor(prefix = '') {
         this.prefix = prefix;
         this.current = {

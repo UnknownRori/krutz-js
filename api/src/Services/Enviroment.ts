@@ -1,5 +1,8 @@
 import dotenv from 'dotenv';
 
+/**
+ * A service singleton class that serve as helper for env variable
+ */
 class Enviroment {
     public APP_HOST: string;
     public APP_PORT: number;

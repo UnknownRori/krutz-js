@@ -11,6 +11,12 @@ export default class App {
     protected port: number;
     protected host: string;
 
+    /**
+     * Create Krutz Application
+     * 
+     * @param  opts FastifyServerOptions
+     * @return App
+     */
     constructor(opts: FastifyServerOptions = {}) {
         const builder = new FastifyBuilder(opts, router);
         this.instance = builder.build();

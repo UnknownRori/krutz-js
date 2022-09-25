@@ -1,8 +1,16 @@
-import { randomUUID } from "crypto";
-import prisma from "./Prisma";
+import { randomUUID } from 'crypto';
+
+import prisma from './Prisma';
 
 export default class RandomString {
 
+    /**
+     * Initialize RandomString service using passed parameter to limit how many 
+     * loop should be performed
+     * 
+     * @param  limitLoop number
+     * @return RandomString
+     */
     constructor(protected limitLoop = 4) {
     }
     /**
