@@ -158,7 +158,7 @@ export default class Route {
             result = result?.replace(`:${k}`, param[k]);
         }
 
-        return result;
+        return this.prefix + result;
     }
 
     /**
