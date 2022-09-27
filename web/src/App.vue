@@ -1,13 +1,40 @@
 <template>
-    <h1 class='text-center text-red-600'>Hello, World!</h1>
+    <LayoutVue>
+        <div class="m-auto flex min-h-screen w-[80%] flex-col justify-center">
+            <header class="my-4 flex flex-col self-center">
+                <h2 class="text-center font-bold text-gray-800 sm:text-6xl md:text-6xl lg:text-6xl">Krutz</h2>
+            </header>
+            <div
+                class="my-4 flex flex-col self-center rounded bg-white p-6 shadow-xl ring-1 ring-gray-200 sm:w-[100%] md:w-[80%]">
+                <h4 class="text-center font-bold text-gray-700 sm:text-2xl md:text-3xl lg:text-4xl">Paste the URI to
+                    be
+                    shortened</h4>
+                <FormVue @submit='test' />
+                <div id='message-display' class="hidden rounded p-2 text-white">
+                    URL is shorten
+                </div>
+                <p class="text-center text-gray-600">Use Krutz to shorten a URL or reduce a link.</p>
+            </div>
+            <section id='result-section' v-show='url'
+                class="flex flex-col self-center rounded bg-white p-6 shadow-xl ring-1 ring-gray-200 sm:w-[100%] md:w-[80%]">
+                <a :href='url' id='result-display'
+                    class="text-blue-600 transition-colors duration-150 hover:text-blue-800 hover:underline">{{
+                    url }}</a>
+            </section>
+        </div>
+    </LayoutVue>
 </template>
 
 <script setup lang='ts'>
-import { onMounted } from 'vue';
+import { ref } from 'vue';
 
-onMounted(() => {
-    fetch(`http://127.0.0.1:3000/api/ping`, {
-    }).then((res) => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-    console.log(import.meta.env.VITE_API_URL);
-});
+import LayoutVue from '@/shared/Layout.vue';
+import FormVue from '@/components/Form.vue';
+
+const url = ref('');
+
+const test = (newUrl: string) => {
+    url.value = newUrl;
+}
 </script>
+

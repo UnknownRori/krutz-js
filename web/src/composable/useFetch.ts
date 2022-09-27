@@ -5,17 +5,23 @@ import type { UnwrapRef } from 'vue';
  * An composable useFetch function use passed url and then concat with the API Base URL
  * @param  url string
  * @param  payload RequestInit
- * @return Ref<UnwrapRef<T>
+ * @return T
  */
-export default function useFetch<T>(url: string, payload: RequestInit) {
-    const state = ref<T | null>(null);
-
+export default function useFetch<T>(url: string) {
     const BASE_PATH = import.meta.env.VITE_API_URL;
 
-    onMounted(async () => {
-        const result = await fetch(`${BASE_PATH}${url}`, payload);
-        state.value = await result.json() as UnwrapRef<T>;
-    })
+    const BASE_HEADERS = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+    };
 
-    return state;
+    async function fetchData(payload: RequestInit = {}) {
+        payload.headers = { ...payload.headers, ...BASE_HEADERS };
+        const response = await fetch(`${BASE_PATH}${url}`, payload);
+        const result = await response.json() as T;
+
+        return result;
+    }
+
+    return fetchData;
 }
