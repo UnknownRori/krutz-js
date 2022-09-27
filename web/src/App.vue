@@ -9,17 +9,20 @@
                 <h4 class="text-center font-bold text-gray-700 sm:text-2xl md:text-3xl lg:text-4xl">Paste the URI to
                     be
                     shortened</h4>
-                <FormVue @submit='test' />
+                <FormVue @submit='submitEvent' />
                 <div id='message-display' class="hidden rounded p-2 text-white">
                     URL is shorten
                 </div>
                 <p class="text-center text-gray-600">Use Krutz to shorten a URL or reduce a link.</p>
             </div>
-            <section id='result-section' v-show='url'
+            <section id='result-section' v-show='formEvent.message'
                 class="flex flex-col self-center rounded bg-white p-6 shadow-xl ring-1 ring-gray-200 sm:w-[100%] md:w-[80%]">
-                <a :href='url' id='result-display'
-                    class="text-blue-600 transition-colors duration-150 hover:text-blue-800 hover:underline">{{
-                    url }}</a>
+                <a :href='formEvent.redirect' v-show='!formEvent.error' id='result-display'
+                    class="text-blue-600 transition-colors duration-150 hover:text-blue-800 hover:underline font-bold">
+                    {{ formEvent.redirect }}</a>
+                <p :class='formEvent.error ? "text-red-700" : "text-green-600"'>
+                    {{formEvent.message}}
+                </p>
             </section>
         </div>
     </LayoutVue>
@@ -31,10 +34,16 @@ import { ref } from 'vue';
 import LayoutVue from '@/shared/Layout.vue';
 import FormVue from '@/components/Form.vue';
 
-const url = ref('');
+import type FormComponentEvent from '@/types/FormComponentEvent';
 
-const test = (newUrl: string) => {
-    url.value = newUrl;
+const formEvent = ref<FormComponentEvent>({
+    error: false,
+    message: '',
+    redirect: '',
+});
+
+const submitEvent = (event: FormComponentEvent) => {
+    formEvent.value = event
 }
 </script>
 

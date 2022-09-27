@@ -24,13 +24,17 @@ const fetchData = useFetch<
 >('/api/uri/short');
 
 const emit = defineEmits<{
-    (e: 'submit', url: string): void
+    (e: 'submit', event: FormComponentEvent): void
 }>();
 
 const url = ref('');
 
 const submit = async () => {
-    emit('submit', '');
+    emit('submit', {
+        error: false,
+        message: '',
+        redirect: ''
+    });
 
     const payload = {
         method: 'POST',
@@ -39,7 +43,21 @@ const submit = async () => {
         })
     };
 
-    emit('submit', import.meta.env.VITE_API_URL + (await fetchData(payload)).uri.redirect);
+    fetchData(payload)
+        .then(res => {
+            emit('submit', {
+                error: false,
+                message: res.message,
+                redirect: import.meta.env.VITE_API_URL + res.uri.redirect
+            });
+        })
+        .catch(res => {
+            emit('submit', {
+                error: true,
+                message: res.message,
+                redirect: ''
+            })
+        })
 }
 
 </script>
