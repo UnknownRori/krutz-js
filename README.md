@@ -6,6 +6,16 @@ A URL shortener microservice written in Typescript using Fastify Web Framework a
 
 - It can short some long uri
 
+## 🖼️ Screenshot
+
+![Untitled13](https://user-images.githubusercontent.com/68576836/192653554-0d9001f0-0631-4b98-a082-ab004a7c36ba.png)
+
+![Untitled14](https://user-images.githubusercontent.com/68576836/192653561-4f0aee3b-93cd-490c-bbeb-c455df44740f.png)
+
+![Untitled15](https://user-images.githubusercontent.com/68576836/192653564-19fcdccc-1146-4afd-8b8e-1d2c3a44e98c.png)
+
+![Untitled16](https://user-images.githubusercontent.com/68576836/192653575-a64e483c-cd47-4cc7-8b28-5954db89bf70.png)
+
 ## 🛠️ Development
 ```bash
 # Clone the repository
