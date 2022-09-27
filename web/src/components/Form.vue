@@ -3,7 +3,7 @@
         <div class="mx-2 flex w-[100%] items-center m-2">
             <InputVue placeholder='Enter the link here' v-model='url' />
         </div>
-        <div class="mx-2 flex w-[20%] justify-center">
+        <div class="mx-2 flex w-[20%] justify-center items-center sm:m-auto">
             <SubmitVue value='Shorten URL' />
         </div>
     </form>
