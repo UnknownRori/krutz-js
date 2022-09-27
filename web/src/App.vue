@@ -18,9 +18,9 @@
             <section id='result-section' v-show='formEvent.message'
                 class="flex flex-col self-center rounded bg-white p-6 shadow-xl ring-1 ring-gray-200 sm:w-[100%] md:w-[80%]">
                 <a :href='formEvent.redirect' v-show='!formEvent.error' id='result-display'
-                    class="text-blue-600 transition-colors duration-150 hover:text-blue-800 hover:underline font-bold">
+                    class="text-blue-600 transition-colors duration-150 hover:text-blue-800 hover:underline">
                     {{ formEvent.redirect }}</a>
-                <p :class='formEvent.error ? "text-red-700" : "text-green-600"'>
+                <p :class='formEvent.error ? "text-red-700" : "text-green-600"' class='font-bold mt-2'>
                     {{formEvent.message}}
                 </p>
             </section>
