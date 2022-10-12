@@ -17,6 +17,7 @@ A URL shortener microservice written in Typescript using Fastify Web Framework a
 ![Untitled16](https://user-images.githubusercontent.com/68576836/192653575-a64e483c-cd47-4cc7-8b28-5954db89bf70.png)
 
 ## 🛠️ Development
+
 ```bash
 # Clone the repository
 > git clone "https://github.com/UnknownRori/krutz-js"
